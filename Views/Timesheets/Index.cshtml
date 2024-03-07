@@ -1,0 +1,77 @@
+﻿@model Organization_Assessment_Project_NEW.Models.EmployeeTimesheetRequest
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Timesheet Comment
+            </th>
+            <th>
+               Day Of Week
+            </th>
+            <th>
+                hour
+            </th>
+            <th>
+               Overtime Hour
+            </th>
+            <th>
+                TotalHours
+            </th>
+            <th>
+                DateRequested
+            </th>
+            <th>
+                Action
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Timesheets) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimesheetComment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DayOfWeek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OvertimeHour)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRequested)
+            </td>
+           
+
+            <td>
+                <a class="btn btn-warning" asp-route-id="@item.TimesheetId"
+                   asp-action="Edit">Edit</a>
+                <a class="btn btn-info" asp-route-id="@item.TimesheetId"
+                   asp-action="Details">Details</a>
+                <a class="btn btn-danger" asp-route-id="@item.TimesheetId"
+                   asp-action="Delete">Delete</a>
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

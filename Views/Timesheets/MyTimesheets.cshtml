@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Organization_Assessment_Project_NEW.Models.Timesheet>
+
+@{
+    ViewData["Title"] = "MyTimesheets";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>MyTimesheets</h1>
+
+<h1>My Leave Records</h1>
+<table id="tblData" class="table">
+    <thead>
+        <tr>
+            <th>
+                Timesheet Comment
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Total Hour
+            </th>
+            <th>
+                Approved By
+            </th>
+            <th>
+                Approval State
+            </th>
+            <th>
+                Cancel Request
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimesheetComment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRequested)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalHours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApprovedBy)
+                </td>
+                <td>
+                    @if (item.Cancelled)
+                    {
+                        <span>Cancelled</span>
+                    }
+                    else if (item.Approved == true)
+                    {
+                        <span>Approved</span>
+                    }
+                    else if (item.Approved == false)
+                    {
+                        <span>Rejected</span>
+                    }
+                    else
+                    {
+                        <span>Pending Approval</span>
+                    }
+                </td>
+                <td>
+                    @if (item.Approved == null)
+                    {
+                        <a class="btn btn-danger" asp-route-id="@item.EmployeeId"
+                           asp-action="CancelRequest">Cancle Request</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

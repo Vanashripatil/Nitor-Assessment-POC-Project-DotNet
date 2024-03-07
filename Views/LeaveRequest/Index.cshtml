@@ -1,0 +1,93 @@
+﻿@model EmployeeLeaveRequest
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<hr />
+<h1>Leave Request Log</h1>
+<hr />
+
+<table id="tblData" class="table">
+    <thead>
+        <tr>
+            <th>
+                Employee Name
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+                Leave Type
+            </th>
+            <th>
+                Date Requested
+            </th>
+            <th>
+                Approval Status
+            </th>
+            <th>
+                Action
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LeaveRequests)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmployeeName) 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRequested)
+                </td>
+                <td>
+                    @if (item.Approved == true)
+                    {
+                        <span>Approved</span>
+                    }
+                    else if (item.Approved == false)
+                    {
+                        <span>Rejected</span>
+                    }
+                    else
+                    {
+                        <span>Pending Approval</span>
+                    }
+
+                <td>
+                    <div>
+                        @if (item.Approved == null)
+                        {
+                        <a class="btn btn-info" asp-route-id="@item.Employee.EmployeeId"
+                           asp-action="ApproveR">Approve</a>
+                        <a class="btn btn-info" asp-route-id="@item.Employee.EmployeeId"
+                           asp-action="RejectR">Reject</a>
+                           
+
+                        }
+                        <a class="btn btn-outline-secondary" asp-action="Index">
+                            <i class="fa fa-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
